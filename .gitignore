@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+.*.py
 
 # Distribution / packaging
 bin/
@@ -26,5 +27,3 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-
-.*
