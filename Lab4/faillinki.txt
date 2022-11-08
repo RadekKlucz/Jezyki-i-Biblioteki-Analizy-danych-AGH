@@ -1,0 +1,34 @@
+Algorytm tworzenia fail-linków w automacie Aho-Corasick:
+
+Żeby zacząć tworzyć fail-linki musimy mieć zbudowane kompletne drzewo trie, czyli wszystkie stany i wszystkie "grube" krawędzie ("do przodu").
+
+Dodawanie fail-linków odbywa się w drodze przeglądania drzewa wszerz (breadth first search).
+
+Korzeń (stan początkowy) nie ma fail-linka. Zamiast niego ma krawędź zwrotną ("jokera").
+
+Wszystkie wierzchołki na pierwszym poziomie (bezpośrednie dzieci korzenia) mają fail-link do korzenia (na diagramie nie zaznaczone).
+
+Żeby dodać fail-link do wierzchołka na głębszym poziomie (nazwijmy go vertex) musimy znać etykietę krawędzi wchodzącej do niego (label) oraz mieć namiary na przodka (parent).
+
+Cofamy się do parent (czyli "pod prąd grubej krawędzi"; to jest jedyny ruch "pod prąd" w tym algorytmie). Stamtąd idziemy po fail-linku (parent jest na poprzednim poziomie drzewa, czyli BFS zapewnia nam, że jego fail-link już jest ustawiony) i szukamy krawędzi wychodzącej z etykietą label (już nie jesteśmy w parent, więc ta krawędź nie będzie prowadziła do vertex). Jeśli takiej nie ma, ponownie idziemy po fail-linku i znowu szukamy krawędzi label i tak do skutku. Gdy już taką krawędź znajdziemy idziemy nią i wierzchołek, do którego dotarliśmy (vertex2) będzie końcem fail-linka z vertex.
+
+Ponieważ fail-linki zawsze prowadzą do wierzchołka, który jest bliżej korzenia, to z jednej strony mamy pewność, że w tym procesie nie trafimy na wierzchołek, który fail-linka jeszcze nie ma ustawionego (dlatego stosujemy BFS, a nie DFS), a z drugiej, że w najgorszym razie po skończonej liczbie kroków dojdziemy do korzenia, który ma krawędź wychodzącą dla każdego znaku (przypominam o "jokerze").  
+
+Przykładowo:
+	
+	Dla stanu 2 z diagramu:
+		przodek to 1, a etykieta to 'b'
+		cofamy się do 1 i przechodzimy fail-linkiem do 0
+		0 nie ma krawędzi 'b' explicite, ale ma '*', więc z tej krawędzi korzystamy, trafiając znowu do 0
+		ponieważ znaleźliśmy krawędź o etykiecie, która nas interesowała, to ustawiamy fail-link z 2 do stanu, do którego dotarliśmy: 0
+		
+	Dla stanu 8:
+		przodek to 7, etykieta 'a'
+		cofamy się do 7 i idziemy jej fail-linkiem do 0
+		w 0 szukamy krawędzi 'a' - prowadzi do 1, więc tam idziemy
+		znaleźliśmy krawędź z pożądaną etykietą, więc fail-link z 8 prowadzi do 1
+		
+	Nasz automat jest na tyle prosty, że nie występuje wierzchołek, dla którego poszukiwanie fail-linka wymagałoby przejścia po fail-linkach więcej niż raz.
+	
+Proszę zauważyć, że fail-link wcale nie musi prowadzić do wierzchołka, który jest na tej samej gałęzi. Analizowany automat ma 3 fail-linki, które łączą różne gałęzie (w tym przypadku wszystkie takie fail-linki wychodzą ze stanów akceptujących, ale nie ma takiej reguły). 
+	
