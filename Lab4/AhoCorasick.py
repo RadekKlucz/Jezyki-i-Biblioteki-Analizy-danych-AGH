@@ -183,16 +183,16 @@ def main():
     The main function to input patterns and the text. This function has two option to print the prefered output. 
     """
 
-    input_patterns = input("Wprowadź listę wzroców (np słowa oddzielone spacjami): ")
+    input_patterns = input("Wprowadź listę wzroców (np słowa oddzielone spacjami):\n>>")
     input_patterns = input_patterns.lower().split()
-    input_string = input("Wprowadz tekst w którym szukasz wzorców: ")
+    input_string = input("Wprowadz tekst w którym szukasz wzorców:\n>>")
     input_string = input_string.lower()
     aho_corastic = SearchStrings(input_patterns)
     aho_corastic.check_inside(input_string)
 
     while True:
         try:
-            option = int(input("Wybierz opcje 1 (wyszukiwanie) lub 2 (wyrysowanie drzewa): "))
+            option = int(input("Wybierz opcje 1 (wyszukiwanie) lub 2 (wyrysowanie drzewa):\n>>"))
             assert option == 1 or option == 2, "Zła opcja"
             if option == 1:
                 aho_corastic.search_patterns(input_string)
@@ -203,7 +203,7 @@ def main():
                 print("-------------------------------------")
                 break
         except AssertionError:
-            print("Wybrałeś złą opcję! Spróbuj ponownie: ")
+            print("Wybrałeś złą opcję! Spróbuj ponownie:\n>>")
 
 
 if __name__ == "__main__":
