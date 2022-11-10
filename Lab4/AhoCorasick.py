@@ -177,6 +177,7 @@ class SearchStrings(BuildTrie):
             for value in output_words[key]:
                 print(f"Początek słowa: {key} został znaleziony na pozycji: {value}")
 
+
 def main():
     """
     The main function to input patterns and the text. This function has two option to print the prefered output. 
@@ -192,7 +193,7 @@ def main():
     while True:
         try:
             option = int(input("Wybierz opcje 1 (wyszukiwanie) lub 2 (wyrysowanie drzewa): "))
-            assert option == 1 or option == 2
+            assert option == 1 or option == 2, "Zła opcja"
             if option == 1:
                 aho_corastic.search_patterns(input_string)
                 break
