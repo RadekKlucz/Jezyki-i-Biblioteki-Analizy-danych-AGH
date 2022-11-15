@@ -1,0 +1,4 @@
+Hello world!
+What a lovely day!
+This is test file.
+And also a text file.
