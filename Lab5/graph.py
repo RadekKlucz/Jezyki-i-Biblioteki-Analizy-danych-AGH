@@ -1,8 +1,13 @@
 from collections import deque
 
+
 class Graph:
     def __init__(self) -> None:
         self.graph = dict()
+
+    
+    def __str__(self) -> str:
+        return f"You have created the graph which that looks like this: {self.graph}"
         
 
     def add_vertices(self, *args):
@@ -37,17 +42,20 @@ class Graph:
             try:
                 edge = list(argument)
                 (point_1, point_2) = tuple(edge)
-                if (point_1 in self.graph) and (point_2 not in self.graph[point_1]):
+                if (point_1 in self.graph and point_2 in self.graph) and (point_2 not in self.graph[point_1]):
                     self.graph[point_1].append(point_2)
-                elif point_1 not in self.graph:
-                    self.graph[point_1] = list(point_2)
                 else:
                     raise AssertionError
-            except AssertionError:
-                print(f"{argument} already exists in graph")
+            except (AssertionError, ValueError):
+                if ValueError:
+                    print(f"{argument} is not correct edge.")
+                elif (point_1 or point_2) not in self.graph:
+                    print(f"{point_1} or {point_2} is not a vertex in the graph.")
+                else:
+                    print(f"{argument} already exists in graph.")
 
 
-    def delete_vartex(self, vartex):
+    def delete_vertex(self, input_vartex):
         """The function deletes the given vartex from the graph.
 
         Args:
@@ -57,16 +65,18 @@ class Graph:
             KeyError: If a vertex does not exist in the graph, the function will return KeyError.
         """
         try:
-            if vartex in self.graph:
-                for edges in self.graph[vartex]:
-                    for values in self.graph[edges]:
-                        if vartex == values:
-                            self.graph[edges].remove(values)
-                del self.graph[vartex]
+            if input_vartex in self.graph:
+                # find edges that contain input vertex that
+                for vertex in self.graph:
+                    for edge in self.graph[vertex]:
+                        if edge == input_vartex:
+                            self.graph[vertex].remove(edge)
+                            break
+                del self.graph[input_vartex]
             else:
                 raise KeyError
         except KeyError:
-            print(f"{vartex} is not vertex in the graph")
+            print(f"{input_vartex} is not vertex in the graph")
 
 
     def delete_edge(self, edge):
@@ -79,22 +89,27 @@ class Graph:
             KeyError: If a edge is not found in the graph, the function will raise KeyError.
         """
         try:
-            for key in self.graph:
-                for value in self.graph[key]:
-                    string_of_edges = key + value
-                    if edge == string_of_edges:
-                        self.graph[key].remove(value)
-                    else: 
-                        raise KeyError            
+            (point_1, point_2) = edge
+            if point_1 in self.graph and point_2 in self.graph:
+                for key in self.graph:
+                    for value in self.graph[key]:
+                        string_of_edges = str(key) + str(value)
+                        if edge == string_of_edges:
+                            self.graph[key].remove(value)
+            else:
+                raise KeyError            
         except KeyError:
-            print(f"{edge} is not edge in the graph")
+            print(f"{edge} is not edge in the graph.")
 
 
     def find_neighbors(self, vertex):
-        """The function finds neighbors of a vertex. ????????????????????????????????????????????
+        """The function finds neighbors of a vertex.
 
         Args:
             vertex (string): A vertex to search for neighbors.
+
+        Returns:
+            (dict) dictionary with the neighbors and edges of the vertex.
         
         Raises:
             KeyError: If the vertex is not found in the graph, the function will return KeyError.
@@ -105,7 +120,7 @@ class Graph:
             else:
                 raise KeyError
         except KeyError:
-            print(f"{vertex} is not vertex in the graph")
+            print(f"{vertex} is not vertex in the graph.")
 
 
     def bfs(self, vertex):
@@ -142,7 +157,7 @@ class Graph:
             else:
                 raise KeyError
         except KeyError:
-            print(f"{vertex} is not vertex in the graph")
+            print(f"{vertex} is not vertex in the graph.")
 
 
     def dfs_secondary_function(self, vertex):
@@ -167,7 +182,7 @@ class Graph:
             else:
                 raise KeyError
         except KeyError:
-            print(f"{vertex} is not vertex in the graph")
+            return print(f"{vertex} is not vertex in the graph")
 
 
     def dfs(self, vertex):
@@ -185,27 +200,83 @@ class Graph:
         self.dfs_secondary_function(vertex)
         return iter(self.list_of_vartex_dfs)
 
+def main():
+    """
+    The main function that runs the program.
+    """
+    # Create the vertices
+    print("Put list of vertices: ")
+    vertices = input(">>")
+    vertices = vertices.split()
+    graph = Graph()
+    print(vertices)
+    graph.add_vertices(*vertices)
+    # Create the edges
+    print("Put edges: ")
+    edges = input(">>")
+    edges = edges.split()
+    graph.add_edges(*edges)
+    # Choose a action
+    print("What do you want to do?")
+    action = input(">>")
+    action = action.lower()
+    match action:
+        case ("delete vertex" | "dv"):
+            print("Input vertex to delete: ")
+            vertex = input(">>")
+            graph.delete_vertex(vertex)
+        case ("delete edge" | "de"):
+            print("Input edge to delete: ")
+            edge = input(">>")
+            graph.delete_edge(edge)
+        case ("find neighbors" | "fn"):
+            print("Input vertex to find neighbors: ")
+            vertex = input(">>")
+            print(graph.find_neighbors(vertex))
+        case "bfs":
+            print("Input vertex to bfs: ")
+            vertex = input(">>")
+            bfs = graph.bfs(vertex)
+            print("How many times do you want iterate?")
+            number = int(input(">>"))
+            try:
+                for i in range(number):
+                    print(bfs.__next__())
+            except StopIteration:
+                print("End iteration.")
+        case "dfs":
+            print("Input vertex to dfs: ")
+            vertex = input(">>")
+            dfs = graph.dfs(vertex)
+            print("How many times do you want iterate?")
+            number = int(input(">>"))
+            try:
+                for i in range(number):
+                    print(dfs.__next__())
+            except StopIteration:
+                print("End iteration.")
+
+        case ("nothing" | "n"):
+            print("Good bye.")
+        case _:
+            print("Invalid input.")
+    print(graph.__str__())
+
 
 if __name__ == "__main__":
-    a = Graph()
-    # a.add_vertices("a", "b", "c", "d", "e")
-    # a.add_edges("ab", "ab",  "ac", "bd", "cd", "de")
-    a.add_vertices("0", "1", "2","3")
-    a.add_edges("20","02", "01", "12", "23", "33")
-    print(a.graph)
-    # print(a.delete_vartex("g"))
-    # a.delete_edge("ef")
-    # print(a.find_neighbors("b"))
-    # b = a.bfs("2")
-    # print(b)
-    # print(b.__next__())
-    # print(b.__next__())
-    c = a.dfs("2")
-    print(c.__next__())
-    print(c.__next__())
-    print(c.__next__())
-    print(c.__next__())
-    
-    
+        main()
 
-    
+    # graph = Graph()
+    # graph.add_vertices("0", "1", "2", "3")
+    # graph.add_edges("20","02", "01", "12", "23", "33")
+    # print(graph.__str__())
+    # # graph.delete_vartex("2")
+    # # graph.delete_edge("02")
+    # print(graph.find_neighbors("3"))
+
+    # bfs = graph.bfs("2")
+    # print(bfs.__next__())
+    # print(bfs.__next__())
+    # dfs = graph.dfs("2")
+    # print(graph.__next__())
+    # print(graph.__next__())
