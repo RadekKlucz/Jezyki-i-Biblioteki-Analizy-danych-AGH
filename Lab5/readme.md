@@ -1,11 +1,11 @@
-# Instrukcja
+# Instrukcja do zadania 5
 
 Wymagana wersja python 3.10
 
 ## Uruchomienie z konsoli
 
-{bash} ```
-    python graph.py
+```{bash}
+python graph.py 
 ```
 
 ## Opis 
