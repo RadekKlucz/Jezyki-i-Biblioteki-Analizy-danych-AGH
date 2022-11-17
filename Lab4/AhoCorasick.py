@@ -5,7 +5,7 @@ __status__ = "accomplished"
 
 from collections import deque
 
-class BuildSapling:
+class BuildSapling:  # skąd Pan wziął tę nazwę?
     def __init__(self, words) -> None:
         self.words = words
         # An empty list has been created with empty dictonary (0 state on diagram)
@@ -34,7 +34,7 @@ class BuildSapling:
             # the function displays an error message
             print(type(error), error)
             print("Użyj wpierw metody search a następnie metody show trie")
-            return KeyError
+            return KeyError  # ??
 
 
     def sapling(self, word):
@@ -48,7 +48,7 @@ class BuildSapling:
         actual_state = 0    
         for i in word:
             # If the function "next" returns True overwrite the actual state
-            if bool(self.next(i, actual_state)) is True:
+            if bool(self.next(i, actual_state)) is True:  # dość pokrętny sposób zapisania if self.next(i, actual_state):
                 actual_state = self.next(i, actual_state)
             # If the function "next" does not return True, the condition appends to trie a new dictionary with the i character of the word. 
             # Otherwise append the new next states to the list of next states and change the actual state
@@ -60,7 +60,7 @@ class BuildSapling:
         self.trie[actual_state]["słowo końcowe"].append(word)
 
 
-class BuildTrie(BuildSapling):
+class BuildTrie(BuildSapling):  # nazwa brzmi jak funkcja
     def __init__(self, words) -> None:
         super().__init__(words)
         # Create a trie using the farlink function and the BuildTrie methods
@@ -69,7 +69,7 @@ class BuildTrie(BuildSapling):
         self.farlink()
 
 
-    def farlink(self):
+    def farlink(self):  # fail link
         """
         The function that builds completely trie with the farlink arguments. 
         """
@@ -87,7 +87,7 @@ class BuildTrie(BuildSapling):
                 while (state != 0 and bool(self.next(self.trie[i]["wartość"], state)) == False):
                     state = self.trie[state]["farlink"]
                 #
-                self.trie[i]["słowo końcowe"] += self.trie[self.trie[i]["farlink"]]["słowo końcowe"]
+                self.trie[i]["słowo końcowe"] += self.trie[self.trie[i]["farlink"]]["słowo końcowe"]  # polglish
                 self.trie[i]["farlink"] = self.next(self.trie[i]["wartość"], state)
 
 
