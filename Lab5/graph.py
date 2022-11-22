@@ -26,7 +26,7 @@ class Graph:
                 else:
                     raise AssertionError
             except AssertionError:
-                print(f"{argument} is vertex in the graph")
+                print(f"{argument} is vertex in the graph")  # zamienił stryjek siekierkę na kijek
 
 
     def add_edges(self, *args):
@@ -41,13 +41,13 @@ class Graph:
         for argument in args:
             try:
                 edge = list(argument)
-                (point_1, point_2) = tuple(edge)
+                point_1, point_2 = edge
                 if (point_1 in self.graph and point_2 in self.graph) and (point_2 not in self.graph[point_1]):
                     self.graph[point_1].append(point_2)
                 else:
                     raise AssertionError
             except (AssertionError, ValueError):
-                if ValueError:
+                if ValueError:  # ten warunek jest zawsze prawdziwy
                     print(f"{argument} is not correct edge.")
                 elif (point_1 or point_2) not in self.graph:
                     print(f"{point_1} or {point_2} is not a vertex in the graph.")
@@ -64,19 +64,15 @@ class Graph:
         Raises:
             KeyError: If a vertex does not exist in the graph, the function will return KeyError.
         """
-        try:
-            if input_vartex in self.graph:
-                # find edges that contain input vertex that
-                for vertex in self.graph:
-                    for edge in self.graph[vertex]:
-                        if edge == input_vartex:
-                            self.graph[vertex].remove(edge)
-                            break
-                del self.graph[input_vartex]
-            else:
-                raise KeyError
-        except KeyError:
+        if input_vartex in self.graph:
+            # find edges that contain input vertex that
+            for vertex in self.graph:
+                if edge in self.graph[vertex]:
+                    self.graph[vertex].remove(edge)
+            del self.graph[input_vartex]
+        else:
             print(f"{input_vartex} is not vertex in the graph")
+            
 
 
     def delete_edge(self, edge):
@@ -93,7 +89,7 @@ class Graph:
             if point_1 in self.graph and point_2 in self.graph:
                 for key in self.graph:
                     for value in self.graph[key]:
-                        string_of_edges = str(key) + str(value)
+                        string_of_edges = str(key) + str(value)  # to nie może być robione na stringach
                         if edge == string_of_edges:
                             self.graph[key].remove(value)
             else:
@@ -196,7 +192,7 @@ class Graph:
             output_iter (iter): Iterator of the vertices.
         """
         self.list_of_vartex_dfs= list()
-        self.visited_dfs = set()
+        self.visited_dfs = set()  # to nie powinien być atrybut
         self.dfs_secondary_function(vertex)
         return iter(self.list_of_vartex_dfs)
 
