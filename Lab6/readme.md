@@ -5,5 +5,5 @@
 ## Uruchomienie z konsoli
 
 ```{bash}
-python Wo.py 
+python WordsCounter.py 
 ```
