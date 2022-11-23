@@ -1,4 +1,4 @@
-# Wymagania 
+# Do uruchomienia skryptu wymagane są następujące moduły:
 * nltk
 * string
 
