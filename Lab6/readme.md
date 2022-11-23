@@ -1,0 +1,4 @@
+# Wymagania 
+* nltk
+* string
+
