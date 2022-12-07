@@ -1,7 +1,7 @@
 import string
 from nltk import word_tokenize, FreqDist
 
-class Counter:
+class Counter:  # overkill - ta klasa ma jedną sensowną metodę i nie potrzebuje stanu - funkcja byłaby wygodniejsza w użyciu
     def __init__(self, filename):
         self.filename = filename
 

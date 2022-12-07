@@ -6,13 +6,13 @@ __status__ = "accomplished"
 from collections import deque
 
 class Trie:
-    def __init__(self, words) -> None:
+    def __init__(self, words) -> None:  # czy ten obiekt jest gotowy do użycia?
         self.words = words
         # An empty list has been created with empty dictonary (0 state on diagram)
         self.trie = [{"next state": [], "fail link": 0, "value": "", "final word": []}]
 
 
-    def next(self, character, state):
+    def next(self, character, state):  # przesłonięcie symbolu wbudowanego
         """
         The function returns the next state if the i sing of value in dictionary is equal to input character. 
         Otherwise, the function returns 0 value with meaning False value.
@@ -47,7 +47,7 @@ class Trie:
         actual_state = 0    
         for i in word:
             # If the function "next" returns True overwrite the actual state
-            if bool(self.next(i, actual_state)):
+            if self.next(i, actual_state):
                 actual_state = self.next(i, actual_state)
             # If the function "next" does not return True, the condition appends to trie a new dictionary with the i character of the word. 
             # Otherwise append the new next states to the list of next states and change the actual state
@@ -59,7 +59,7 @@ class Trie:
         self.trie[actual_state]["final word"].append(word)
 
 
-class BuildTree(Trie):
+class BuildTree(Trie):  # to jest nazwa dla funkcji, a nie klasy
     def __init__(self, words) -> None:
         super().__init__(words)
         self.representation = "Trie("
@@ -75,7 +75,7 @@ class BuildTree(Trie):
         """
         # Create a enpty queue and append to it the node form the first dictionary in the trie 
         queue = deque(i for i in self.trie[0]["next state"])
-        while bool(queue):
+        while queue:
             # Take the first node from the queue and remove it from the queue
             actual_node = queue[0]
             queue.remove(actual_node)
@@ -121,7 +121,7 @@ class BuildTree(Trie):
         return self.representation
 
 
-class SearchStrings(BuildTree):
+class SearchStrings(BuildTree):  # przerost liczby klas
     def __init__(self, words) -> None:
         super().__init__(words)
         self.list_of_trues = []
@@ -198,19 +198,18 @@ def main():
     aho_corastic.check_inside(input_string)
 
     while True:
-        try:
-            option = int(input("Select option 1 (search) or 2 (draw tree):\n>>"))
-            assert option == 1 or option == 2, "Wrong option"
-            if option == 1:
-                aho_corastic.search_patterns(input_string)
-                break
-            elif option == 2:
-                print("Created tree \n -------------------------------------" )
-                # aho_corastic.show_trie()
-                print(repr(aho_corastic))
-                print("-------------------------------------")
-                break
-        except AssertionError:
+        option = int(input("Select option 1 (search) or 2 (draw tree):\n>>"))  # a co z ValueError?
+        
+        if option == 1:
+            aho_corastic.search_patterns(input_string)
+            break
+        elif option == 2:
+            print("Created tree \n -------------------------------------" )
+            # aho_corastic.show_trie()
+            print(repr(aho_corastic))
+            print("-------------------------------------")
+            break
+        else:
             print("You chose the wrong option! try again:\n>>")
 
 
