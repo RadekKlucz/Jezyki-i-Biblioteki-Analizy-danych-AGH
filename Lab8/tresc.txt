@@ -1,0 +1,22 @@
+Napisać system obsługi biblioteki:
+- System ma być obsługiwany przez konsolę gdzie się da, należy użyć menu OK
+- System powinien umożliwiać zalogowanie się (jako czytelnik lub bibliotekarz) OK
+- System powinien przechowywać swoje dane na dysku (proszę przemyśleć organizację) - zmiany dokonane podczas jednego uruchomienia programu mają być widoczne w drugim OK
+
+    Czytelnik może:
+    - wypożyczyć książkę, OK
+    - zarezerwować książkę, która jest wypożyczona, OK
+    - przedłużyć wypożyczenie, OK
+    - przeglądać katalog (wyszukiwanie po tytule, autorze lub słowach kluczowych) OK
+
+
+    Bibliotekarz może przyjąć: 
+    - zwrot książki, OK
+    - dodać nową książkę, OK
+    - usunąć książkę z systemu, OK
+    - dodać czytelnika  OK
+    - przeglądać katalog OK
+
+
+    
+Termin: 15.12.2022 godz. 20:00

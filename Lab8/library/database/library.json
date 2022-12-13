@@ -1,0 +1,26 @@
+[
+    {
+        "bookID": "1",
+        "title": "Potop",
+        "author": "Sienkiewicz",
+        "description": "Bardzo duzo Szwedow",
+        "checked-out by": "User1",
+        "reservation": false,
+        "reservation date": "2022/03/29",
+        "in library": false,
+        "check-out date": "2022/03/14",
+        "due date": "2022/03/28"
+    },
+    {
+        "bookID": "2",
+        "title": "Krzyzacy",
+        "author": "Sienkiewicz",
+        "description": "Bitwa pod Grunwaldem",
+        "checked-out by": "",
+        "reservation": false,
+        "reservation date": "",
+        "in library": true,
+        "check-out date": "",
+        "due date": ""
+    }
+]
