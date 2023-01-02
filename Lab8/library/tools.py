@@ -2,10 +2,10 @@ import json
 from datetime import date, timedelta, datetime
 
 class LibrarianTools:
-    def book_return():
+    def book_return():  # a gdzie self?
         """This method returns a book in library"""
         id_book = input("Enter id book: ")
-        with open("./database/library.json", "r+") as json_file:
+        with open("./database/library.json", "r+") as json_file:  # to nie jest dobre miejsce na obsługę pliku
             data = json.load(json_file)
             for book in data:
                 if book["bookID"] == id_book:
@@ -82,13 +82,13 @@ class UserTools:
                     return True
 
 
-    def reservation_book(self):
+    def reservation_book(self):  # gramatyka
         """This method reserves a book in library"""
         title = input("Enter title of book: ")
         with open("./database/library.json", "r+") as json_file:
             data = json.load(json_file)
             for book in data:
-                if book["title"].lower() == title.lower() and book["in library"] == False and book["reservation"] == False:
+                if book["title"].lower() == title.lower() and not book["in library"] and not book["reservation"]:
                     book["reservation"] = True
                     today_date = date.today()
                     book["reservation date"] = today_date.strftime("%Y/%m/%d")

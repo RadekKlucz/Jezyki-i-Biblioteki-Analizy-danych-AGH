@@ -31,7 +31,7 @@ class Librarian:
 class User:
     def __init__(self, username, password):
         self.username = username
-        self.password = hashlib.md5(password.encode()).hexdigest()
+        self.password = hashlib.md5(password.encode()).hexdigest()  # DRY
 
 
     def create_user(self):
