@@ -1,0 +1,14 @@
+Używając biblioteki pandas:
+1. Wczytaj pliki Plant_1_Generation_Data.csv i Plant_2_Generation_Data.csv (źródło: Kaggle) i utwórz z nich jeden DataFrame
+2. Odfiltruj wiersze z brakującymi danymi
+3. Wykonaj wykres AC_POWER dla wybranego generatora w wybranym tygodniu
+4. Na tym samym wykresie pokaż średnie AC_POWER dla wszystkich generatorów
+5. Znajdź przypadki, kiedy AC_POWER któregoś z generatorów było na poziomie < 80% średniej. Których generatorów najczęściej to dotyczy?
+W punktach 4. i 5. chodzi o uśrednienie po generatorach
+
+
+Bibliografia:
+    https://github.com/jvns/pandas-cookbook
+    https://www.kaggle.com/learn/pandas
+
+Termin: 5.01.2022 20:00
