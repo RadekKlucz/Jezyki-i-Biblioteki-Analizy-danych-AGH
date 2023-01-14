@@ -18,7 +18,7 @@ for language in languages:
 
 
 # Zamiana tekstu na reprezentację n-gramową (n=3)
-vectorizer = CountVectorizer(ngram_range=(1, 3))
+vectorizer = CountVectorizer(ngram_range=(1, 3)) # dobrze by było przetestować dla każdego n osobno
 X = vectorizer.fit_transform(training_data)
 
 # Tworzenie klasyfikatorów
